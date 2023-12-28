@@ -4,5 +4,5 @@ use clap::Parser;
 
 
 fn main() {
-    interface::cli::cli::Opts::parse();
+    interface::cli::Opts::parse();
 }
