@@ -1,27 +1,29 @@
+
 /// Handles parsing and writing individual PrusaSlicer configuration files
 use ini_core::{Item, Parser};
 use std::fs::read_to_string;
 
+
 /// Represents a PrusaSlicer configuration property within a section
 #[derive(Debug, Clone)]
 pub struct Property {
-    key: String,
-    value: Option<String>,
+    pub key: String,
+    pub value: Option<String>,
 }
 
 /// Represents a PrusaSlicer configuration section within a file
 #[derive(Debug, Clone)]
 pub struct Section {
-    name: String,
-    properties: Vec<Property>,
+    pub name: String,
+    pub properties: Vec<Property>,
 }
 
 /// Represents a PrusaSlicer configuration file
 #[derive(Debug, Clone)]
 pub struct File {
-    path: String,
-    properties: Vec<Property>,
-    sections: Vec<Section>,
+    pub path: String,
+    pub properties: Vec<Property>,
+    pub sections: Vec<Section>,
 }
 
 impl File {
@@ -107,7 +109,10 @@ impl File {
             };
         });
 
-        dbg!(&file);
         Ok(file)
+    }
+
+    pub fn format(&self, out: &mut String) {
+        todo!();
     }
 }
