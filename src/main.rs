@@ -1,8 +1,9 @@
-
 mod interface;
-use clap::Parser;
+mod slicer_configs;
+
+
 
 
 fn main() {
-    interface::cli::Opts::parse();
+    // Read file to string
 }
