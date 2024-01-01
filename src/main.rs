@@ -5,7 +5,25 @@ mod slicer_configs;
 
 const PATH: &str = "";
 
-// Make sure the given given printer exists and it has the given nozzle
+/// Adds a printer with the given nozzle to the given HashMap
+/// If the printer already exists, it checks if the nozzle exists
+/// and if it doesn't it adds it
+///
+/// # Arguments
+///
+/// * `printers` - A mutable reference to a HashMap that stores the printers and nozzles
+/// * `name` - The name of the printer
+/// * `nozzle` - The nozzle of the printer
+///
+/// # Example
+///
+/// ```rust
+/// let mut printers = HashMap::new();
+///
+/// has_printer_and_nozzle(&mut printers, "model:MK3S", "0.4");
+///
+/// assert_eq!(printers.get("model:MK3S"), Some(&Some(vec!["0.4"])));
+/// ```
 fn has_printer_and_nozzle<'a>(
     printers: &mut HashMap<&'a str, Option<Vec<&'a str>>>,
     name: &'a str,
@@ -32,13 +50,15 @@ fn main() {
 
     let config = slicer_configs::ConfigFile::parse(&contents).expect("Failed to parse config");
     let mut map = config.to_map();
-    let prusa_vendor = map
-        .sections
+    let prusa_vendor = map.sections
         .entry("vendor:PrusaResearch")
+        // In the case that the vendor doesn't exist, add it
         .or_insert(HashMap::new());
 
-    has_printer_and_nozzle(prusa_vendor, "model:MK4IS", "0.2");
-    has_printer_and_nozzle(prusa_vendor, "model:MK3S", "0.2");
+    has_printer_and_nozzle(prusa_vendor, "model:MK4IS", "0.4");
+    has_printer_and_nozzle(prusa_vendor, "model:MK3S", "0.4");
 
-    dbg!(map.to_file());
+    let mut out = String::new();
+    map.to_file().format(&mut out);
+    println!("{out}");
 }
