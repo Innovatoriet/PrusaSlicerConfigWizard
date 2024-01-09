@@ -14,10 +14,10 @@ pub fn get_config_dir() -> Option<PathBuf> {
     let mut home = home_dir()?;
 
     #[cfg(any(target_os = "linux", target_os = "macos"))]
-    home.push(".config/custom_prusa_config_wizard");
+    home.push(".config/prusa_custom_config_wizard");
 
     #[cfg(target_os = "windows")]
-    home.push("AppData/Roaming/custom_prusa_config_wizard");
+    home.push("AppData/Roaming/prusa_custom_config_wizard");
 
     // TODO: Add support for other OS
     #[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
