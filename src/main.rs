@@ -2,8 +2,7 @@ use std::{collections::HashMap, fs::read_to_string};
 
 mod interface;
 mod slicer_configs;
-
-const PATH: &str = "";
+mod utils;
 
 /// Adds a printer with the given nozzle to the given HashMap
 /// If the printer already exists, it checks if the nozzle exists
@@ -46,7 +45,10 @@ fn has_printer_and_nozzle<'a>(
 }
 
 fn main() {
-    let contents = read_to_string(PATH).expect("Something went wrong reading the file");
+    let mut path = utils::get_prusa_dir().expect("Failed to get config dir");
+    path.push("PrusaSlicer.ini");
+
+    let contents = read_to_string(path).expect("Something went wrong reading the file");
 
     let config = slicer_configs::ConfigFile::parse(&contents).expect("Failed to parse config");
     let mut map = config.to_map();
