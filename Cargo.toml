@@ -8,7 +8,7 @@ edition = "2021"
 [dependencies]
 chrono = "0.4.31"
 clap = { version = "4.4.11",  features = ["derive"] }
-fast_config = { version = "1.1.3", features = ["yaml"] }
+git2 = "0.18.1"
 ini_core = "0.2.0"
 serde = "1.0.195"
 simple-home-dir = "0.2.1"

@@ -1,11 +1,4 @@
-use std::path::PathBuf;
-
-use fast_config::{error::ConfigError, Config};
-use serde::{Deserialize, Serialize};
-
-use crate::utils;
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Repository {
     /// The url of the source repository
     pub url: String,
@@ -17,7 +10,7 @@ pub struct Repository {
     pub last_commit: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone)]
 pub struct Settings {
     /// If true, use exesive logging
     pub verbose: bool,
@@ -37,21 +30,4 @@ impl Default for Settings {
             },
         }
     }
-}
-
-/// Load and parse config file
-///
-/// If the file doens't exist, use defaults
-pub fn load() -> Result<Config<Settings>, ConfigError> {
-    let mut path = utils::get_config_dir().expect("Failed to get config dir");
-    path.push("config.yaml");
-
-    let config = Config::new(path, Settings::default());
-
-    // Write config if it successfully loaded
-    if let Ok(ref res) = config {
-        res.save().expect("Failed to write config file");
-    }
-
-    config
 }
