@@ -1,3 +1,4 @@
+
 #[derive(Debug, Clone)]
 pub struct Repository {
     /// The url of the source repository
@@ -12,22 +13,25 @@ pub struct Repository {
 
 #[derive(Debug, Clone)]
 pub struct Settings {
-    /// If true, use exesive logging
-    pub verbose: bool,
-
     /// The source repository
     pub source: Repository,
+}
+
+impl Default for Repository {
+    fn default() -> Self {
+        Self {
+            url: "https://github.com/Square-face/example_prusa_config.git".to_string(),
+            last_updated: None,
+            last_commit: None,
+        }
+    }
 }
 
 impl Default for Settings {
     fn default() -> Self {
         Self {
-            verbose: false,
-            source: Repository {
-                url: "".to_string(),
-                last_updated: None,
-                last_commit: None,
-            },
+            source: Repository::default(),
         }
     }
 }
+
