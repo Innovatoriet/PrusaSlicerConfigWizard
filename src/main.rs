@@ -1,4 +1,4 @@
-use std::{collections::HashMap, fs::read_to_string};
+use std::collections::HashMap;
 
 mod interface;
 mod slicer_configs;
@@ -46,7 +46,6 @@ fn has_printer_and_nozzle<'a>(
 }
 
 fn main() {
-
     let config = config::load().unwrap();
 
     dbg!(config.data);
